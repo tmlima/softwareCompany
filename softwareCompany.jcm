@@ -1,0 +1,23 @@
+mas softwareCompany {
+	agent client
+	agent manager
+	agent analyst
+	agent dev {
+		roles: developer in softwareCompany_org.p_team
+	}
+	agent tester
+
+    organisation softwareCompany_org: softwareCompany.xml {
+        group p_team: projectTeam {
+            responsible-for: develop_software_eng
+            players: manager manager,
+                     dev    developer,
+                     analyst  analyst
+        }
+        scheme develop_software_eng: develop_software_sch {
+        } 
+    }
+ 
+ 	asl-path: src/agt
+  		src/agt/inc                 
+}
