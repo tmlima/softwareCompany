@@ -9,7 +9,51 @@
 
 /* Plans */
 
-+!start : true <- .print("hello world.").
++!start : true.
+  
++project(ProjectName) 
+	<- 
+		.print("I was assigned to project ", ProjectName);
+		lookupArtifact("board", BoardArtId);
+		focus(BoardArtId);
+		+boardArtId(BoardArtId);
+		+idle;
+		.
 
-+tick [artifact_name(Id,"c0")]
-  <- println("perceived a tick").
++doingTask(TaskArtId) : boardArtId(BoardArtId)
+	<-
+		!doTask(TaskArtId);
+		moveTask(TaskArtId, "Doing", "Test")[artifact_id(BoardArtId)];
+		.
+		
++idle : boardArtId(BoardArtId) & firstTaskTodoArtId(TaskArtId)[artifact_id(BoardArtId)] & not(TaskArtId = "")
+	<-
+		!getTask(TaskArtId, BoardArtId);
+		-idle;
+		+doingTask(TaskArtId);
+		.
+
++idle : true <- !idle.
+
++!getTask(TaskArtIdString, BoardArtId)
+	<-
+		.print("Found task ", TaskArtIdString, " todo");
+		moveTask(TaskArtIdString, "Todo", "Doing")[artifact_id(BoardArtId)];
+		lookupArtifact(TaskArtIdString, TaskArtId);
+		focus(TaskArtId);
+		.
+
++!idle
+	<- 
+		.print("Any task todo found");
+		.wait(5000); 
+		-+idle
+		.
+		
++!doTask(TaskArtId)
+	<-
+		.print("Doing task ", TaskArtId);
+		.wait(10000);
+		.print("Task ", TaskArtId, " done!");
+		.
+

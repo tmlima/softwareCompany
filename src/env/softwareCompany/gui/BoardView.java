@@ -1,5 +1,7 @@
 package softwareCompany.gui;
 
+import java.util.List;
+
 import javax.swing.JFrame;
 
 import softwareCompany.gui.domain.Task;
@@ -15,14 +17,9 @@ public class BoardView extends JFrame {
 		
 		setContentPane(panel);
 	}
-	
-	public synchronized void addTask(Task task) {
-		panel.addTask(task);
-		repaint();
-	}
-	
-	public synchronized void moveTask(int taskId, String columnFrom, String columnTo) {
-		panel.moveTask(taskId, columnFrom, columnTo);
+
+	public synchronized void update(List<BoardColumn> columns) {
+		panel.update(columns);
 		repaint();
 	}
 }

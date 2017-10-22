@@ -40,6 +40,7 @@
 	<-
 		lookupArtifact("board", BoardArtId);
 		focus(BoardArtId);
-		.print("Adding task ", TaskName, " to board");
-		addTask(TaskId)[artifact_id(BoardArtId)]
+		.print("Adding task ", TaskId, " to board");
+		.term2string(TaskId, TaskIdString);
+		addTask(TaskArtId, TaskIdString)[artifact_id(BoardArtId)]
 		.

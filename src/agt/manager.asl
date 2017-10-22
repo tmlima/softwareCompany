@@ -16,13 +16,16 @@
       	focus(OrgArtId);
       
 		makeArtifact("board", "softwareCompany.gui.Board");
-		!sendRequirementsToAnalyst
+		!sendRequirementsToAnalyst(Name);
+		!assignDevsToProject(Name)
 		.
 	
-+!sendRequirementsToAnalyst
++!sendRequirementsToAnalyst(ProjectName)
 	<-
 		for (requirement(ProjectName,RequirementArtifactName)) {
 			.send(analyst, tell, requirement(ProjectName,RequirementArtifactName));
 		}	
 		.send(analyst, tell, project(ProjectName))
 		.
+		
++!assignDevsToProject(ProjectName) <- .send(dev, tell, project(ProjectName)).

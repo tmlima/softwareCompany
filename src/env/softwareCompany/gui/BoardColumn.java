@@ -39,15 +39,15 @@ public class BoardColumn {
 		this.tasks.add(task);
 	}
 	
-	public Task popTask(int id) {
+	public Task popTask(String artifactId) {
 		for (Task t : tasks) {
-			if (t.getId() == id) {
+			if (t.getArtifactId().equals(artifactId)) {
 				Task toPop = t;
 				tasks.remove(t);
 				return toPop;
 			}
 		}
 		
-		throw new RuntimeException("Task " + id + " not found");
+		return null;
 	}
 }

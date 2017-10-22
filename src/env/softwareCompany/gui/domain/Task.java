@@ -2,13 +2,19 @@ package softwareCompany.gui.domain;
 
 public class Task {
 
-	private int id;
+	private String artifactId;
+	private String name;
 	
-	public Task(int id) {
-		this.id = id;
+	public Task(String artifactId, String name) {
+		this.artifactId = artifactId;
+		this.name = name;
 	}
 
-	public int getId() {
-		return id;
+	public String getArtifactId() {
+		return artifactId;
+	}
+	
+	public String getName() {
+		return name;
 	}
 }

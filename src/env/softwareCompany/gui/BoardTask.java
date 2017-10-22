@@ -20,6 +20,6 @@ public class BoardTask {
 		g.fillRect(x, y, 150, this.POSTIT_HEIGHT);
 		g.setColor(Color.BLUE);
 		g.setFont(new Font("Arial", Font.PLAIN, FONT_SIZE));
-		g.drawString(Integer.toString(task.getId()), x, y + FONT_SIZE);
+		g.drawString(task.getName(), x, y + FONT_SIZE);
 	}
 }
