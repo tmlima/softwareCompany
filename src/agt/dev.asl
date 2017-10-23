@@ -1,5 +1,4 @@
-{ include("$jacamoJar/templates/common-cartago.asl") }
-{ include("$jacamoJar/templates/common-moise.asl") }
+{ include("common.asl") }
 
 /* Initial beliefs and rules */
 
@@ -10,9 +9,9 @@
 /* Plans */
 
 +!start : true.
-  
+
 +project(ProjectName) 
-	<- 
+	<- 	
 		.print("I was assigned to project ", ProjectName);
 		lookupArtifact("board", BoardArtId);
 		focus(BoardArtId);
@@ -35,10 +34,10 @@
 
 +idle : true <- !idle.
 
-+!getTask(TaskArtIdString, BoardArtId)
++!getTask(TaskArtIdString, BoardArtId) : .my_name(Name)
 	<-
 		.print("Found task ", TaskArtIdString, " todo");
-		moveTask(TaskArtIdString, "Todo", "Doing")[artifact_id(BoardArtId)];
+		moveTask(TaskArtIdString, "Todo", "Doing", Name)[artifact_id(BoardArtId)];
 		lookupArtifact(TaskArtIdString, TaskArtId);
 		focus(TaskArtId);
 		.

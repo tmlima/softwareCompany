@@ -1,5 +1,4 @@
-{ include("$jacamoJar/templates/common-cartago.asl") }
-{ include("$jacamoJar/templates/common-moise.asl") }
+{ include("common.asl") }
 
 /* Initial beliefs and rules */
 
@@ -28,4 +27,4 @@
 		.send(analyst, tell, project(ProjectName))
 		.
 		
-+!assignDevsToProject(ProjectName) <- .send(dev, tell, project(ProjectName)).
++!assignDevsToProject(ProjectName) <- !send_role(developer, project(ProjectName)).

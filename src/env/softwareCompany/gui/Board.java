@@ -38,9 +38,10 @@ public class Board extends GUIArtifact {
 		update();
 	}
 
-	@OPERATION public void moveTask(String taskArtId, String columnFrom, String columnTo) {
+	@OPERATION public void moveTask(String taskArtId, String columnFrom, String columnTo, String personResponsible) {
 		try {
 			Task task = getTaskFromColumn(taskArtId, columnFrom);
+			task.setPersonResponsible(personResponsible);
 			addTaskToColumn(task, columnTo);
 			update();			
 		}catch (Exception e) {

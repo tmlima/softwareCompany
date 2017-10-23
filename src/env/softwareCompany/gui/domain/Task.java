@@ -4,6 +4,7 @@ public class Task {
 
 	private String artifactId;
 	private String name;
+	private String personResponsible;
 	
 	public Task(String artifactId, String name) {
 		this.artifactId = artifactId;
@@ -16,5 +17,13 @@ public class Task {
 	
 	public String getName() {
 		return name;
+	}
+	
+	public void setPersonResponsible(String personResponsible) {
+		this.personResponsible = personResponsible;
+	}
+	
+	public String getPersonResponsible() {
+		return personResponsible;
 	}
 }

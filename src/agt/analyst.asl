@@ -1,6 +1,4 @@
-
-{ include("$jacamoJar/templates/common-cartago.asl") }
-{ include("$jacamoJar/templates/common-moise.asl") }
+{ include("common.asl") }
 
 /* Initial beliefs and rules */
 
@@ -16,8 +14,6 @@
 	<-	
 	!createTasksFromRequirement(RequirementArtifactName)
 	.
-
-+project(ProjectName) <- .send(dev, tell, project(ProjectName)).
 
 +!createTasksFromRequirement(RequirementArtifactName)
 	<-

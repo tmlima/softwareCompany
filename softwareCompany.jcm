@@ -3,7 +3,7 @@ mas softwareCompany {
 	agent manager
 	agent analyst
 	agent dev {
-		roles: developer in softwareCompany_org.p_team
+		instances: 2
 	}
 	agent tester
 
