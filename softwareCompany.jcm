@@ -1,8 +1,10 @@
 mas softwareCompany {
+	agent user
+	agent proj_owner
 	agent client
 	agent manager
 	agent analyst
-	agent dev {
+	agent developer {
 		instances: 2
 	}
 	agent tester
@@ -11,7 +13,7 @@ mas softwareCompany {
         group p_team: projectTeam {
             responsible-for: develop_software_eng
             players: manager manager,
-                     dev    developer,
+                     developer developer,
                      analyst  analyst
         }
         scheme develop_software_eng: develop_software_sch {
