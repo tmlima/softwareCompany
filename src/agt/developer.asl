@@ -21,8 +21,8 @@
 
 +doingTask(TaskArtId) : boardArtId(BoardArtId)
 	<-
-		!doTask(TaskArtId, BoardArtId);
-		moveTask(TaskArtId, "Doing", "ToTest")[artifact_id(BoardArtId)];
+		!doTask(TaskArtId);
+		!moveToTest(TaskArtId, BoardArtId);
 		.
 		
 +idle : boardArtId(BoardArtId) & firstTaskTodoArtId(TaskArtId)[artifact_id(BoardArtId)] & not(TaskArtId = "")
@@ -42,11 +42,14 @@
 		focus(TaskArtId);
 		.
 		
-+!doTask(TaskArtIdString, BoardArtId)
++!doTask(TaskArtIdString)
 	<-
 		.print("Developing task ", TaskArtIdString);
 		.wait(10000);
-		moveTask(TaskArtIdString, "Doing", "ToTest", "")[artifact_id(BoardArtId)];
 		.print("Task ", TaskArtIdString, " developed!");
 		.
 
++!moveToTest(TaskArtIdString, BoardArtId)
+	<-
+		moveTask(TaskArtIdString, "Doing", "ToTest", "")[artifact_id(BoardArtId)];
+		.

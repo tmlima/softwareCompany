@@ -14,7 +14,8 @@ mas softwareCompany {
             responsible-for: develop_software_eng
             players: manager manager,
                      developer developer,
-                     analyst  analyst
+                     analyst  analyst,
+                     tester tester
         }
         scheme develop_software_eng: develop_software_sch {
         } 

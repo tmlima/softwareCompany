@@ -16,7 +16,8 @@
       
 		makeArtifact("board", "softwareCompany.gui.Board");
 		!sendRequirementsToAnalyst(Name);
-		!assignDevsToProject(Name)
+		!assignDevsToProject(Name);
+		!assignTestersToProject(Name);
 		.
 	
 +!sendRequirementsToAnalyst(ProjectName)
@@ -28,3 +29,4 @@
 		.
 		
 +!assignDevsToProject(ProjectName) <- !send_role(developer, project(ProjectName)).
++!assignTestersToProject(ProjectName) <- !send_role(tester, project(ProjectName)).

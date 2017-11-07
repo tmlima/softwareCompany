@@ -51,22 +51,30 @@ public class Board extends GUIArtifact {
 			update();			
 
 			updateFirstTaskArtifactId(columnFrom);
+			updateFirstTaskArtifactId(columnTo);
 		}catch (Exception e) {
+			e.printStackTrace();
 			failed("MoveTask: " + e.getMessage());
 		}
 	}
-	
-	private void updateFirstTaskArtifactId(String column) {
-		String obsProperty;
-		if (column.equals("Todo"))
-			obsProperty = OBS_PROPERTY_FIRST_TASK_TODO_ART_ID;
-		else if (column.equals("ToTest"))
-			obsProperty = OBS_PROPERTY_FIRST_TASK_TOTEST_ART_ID;
-		else
-			throw new RuntimeException(column);
 
-		String artifactId = getFirstTaskArtifactId(getColumn(column));
-		updateObsProperty(obsProperty, artifactId);		
+	private void updateFirstTaskArtifactId(String column) {
+		if  (columnHaveFirstTaskArtifactId(column)) {
+			String obsProperty;
+			if (column.equals("Todo"))
+				obsProperty = OBS_PROPERTY_FIRST_TASK_TODO_ART_ID;
+			else if (column.equals("ToTest"))
+				obsProperty = OBS_PROPERTY_FIRST_TASK_TOTEST_ART_ID;
+			else
+				throw new RuntimeException(column);
+
+			String artifactId = getFirstTaskArtifactId(getColumn(column));
+			updateObsProperty(obsProperty, artifactId);			
+		}
+	}
+	
+	private boolean columnHaveFirstTaskArtifactId(String column) {
+		return !column.equals("Doing");		
 	}
 	
 	private String getFirstTaskArtifactId(BoardColumn column) {

@@ -5,9 +5,9 @@
 
 /* Initial goals */
 
-+!send_role(Role, Message) : .findall(Agent, play(Agent, Role, _), Devs)
++!send_role(Role, Message) : .findall(Agent, play(Agent, Role, _), Group)
 	<-
-		.send(Devs, tell, Message).
+		.send(Group, tell, Message).
 		
 +!idle
 	<- 
@@ -15,4 +15,3 @@
 		.wait(5000); 
 		-+idle
 		.
-		

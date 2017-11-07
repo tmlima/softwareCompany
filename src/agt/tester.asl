@@ -8,19 +8,23 @@
 
 /* Plans */
 
-+!start : true <- .print("hello world.").
-
-+doingTask(TaskArtId) : boardArtId(BoardArtId)
-	<-
-		!doTask(TaskArtId);
-		moveTask(TaskArtId, "Testing", "Done")[artifact_id(BoardArtId)];
-		.
++!start : true <- +idle.
 		
-+idle : boardArtId(BoardArtId) & firstTaskTodoArtId(TaskArtId)[artifact_id(BoardArtId)] & not(TaskArtId = "")
++project(ProjectName) 
+	<- 	
+		.print("I was assigned to project ", ProjectName);
+		lookupArtifact("board", BoardArtId);
+		focus(BoardArtId);
+		+boardArtId(BoardArtId);
+		+idle;
+		.
+				
++idle : boardArtId(BoardArtId) & firstTaskToTestArtId(TaskArtId)[artifact_id(BoardArtId)] & not(TaskArtId = "")
 	<-
 		!getTask(TaskArtId, BoardArtId);
 		-idle;
-		+doingTask(TaskArtId);
+		!doTask(TaskArtId);
+		+idle;		
 		.
 
 +idle : true <- !idle.
@@ -32,11 +36,21 @@
 		lookupArtifact(TaskArtIdString, TaskArtId);
 		focus(TaskArtId);
 		.
+
++!doTask(TaskArtId) : boardArtId(BoardArtId)
+	<-
+		!testTask(TaskArtId);
+		!moveToDone(TaskArtId, BoardArtId);
+		.
 		
-+!doTask(TaskArtId)
++!testTask(TaskArtId)
 	<-
 		.print("Testing task ", TaskArtId);
 		.wait(10000);
 		.print("Task ", TaskArtId, " tested!");
 		.
 		
++!moveToDone(TaskArtId, BoardArtId)
+	<-
+		moveTask(TaskArtId, "Testing", "Done")[artifact_id(BoardArtId)];
+		.
