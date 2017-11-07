@@ -50,4 +50,8 @@ public class BoardColumn {
 		
 		return null;
 	}
+	
+	public List<Task> getTasks() {
+		return tasks;
+	}
 }

@@ -8,3 +8,11 @@
 +!send_role(Role, Message) : .findall(Agent, play(Agent, Role, _), Devs)
 	<-
 		.send(Devs, tell, Message).
+		
++!idle
+	<- 
+		.print("Any task todo found");
+		.wait(5000); 
+		-+idle
+		.
+		

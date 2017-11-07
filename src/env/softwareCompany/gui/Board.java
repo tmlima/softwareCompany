@@ -3,7 +3,9 @@ package softwareCompany.gui;
 import softwareCompany.gui.domain.Task;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import cartago.ArtifactId;
 import cartago.OPERATION;
@@ -15,17 +17,20 @@ public class Board extends GUIArtifact {
 	List<BoardColumn> columns;
 
 	public static final String OBS_PROPERTY_FIRST_TASK_TODO_ART_ID = "firstTaskTodoArtId";
+	public static final String OBS_PROPERTY_FIRST_TASK_TOTEST_ART_ID = "firstTaskToTestArtId";
 	
 	@Override
 	public void init() {
 		view = new BoardView();
 		view.setVisible(true);
         defineObsProperty(OBS_PROPERTY_FIRST_TASK_TODO_ART_ID, "");
+        defineObsProperty(OBS_PROPERTY_FIRST_TASK_TOTEST_ART_ID, "");
         
 		columns = new ArrayList<BoardColumn>();
 		columns.add(new BoardColumn("Todo"));
 		columns.add(new BoardColumn("Doing"));
-		columns.add(new BoardColumn("Test"));
+		columns.add(new BoardColumn("ToTest"));
+		columns.add(new BoardColumn("Testing"));
 		columns.add(new BoardColumn("Done"));
 	}
 	
@@ -44,17 +49,44 @@ public class Board extends GUIArtifact {
 			task.setPersonResponsible(personResponsible);
 			addTaskToColumn(task, columnTo);
 			update();			
+
+			updateFirstTaskArtifactId(columnFrom);
 		}catch (Exception e) {
 			failed("MoveTask: " + e.getMessage());
 		}
 	}
+	
+	private void updateFirstTaskArtifactId(String column) {
+		String obsProperty;
+		if (column.equals("Todo"))
+			obsProperty = OBS_PROPERTY_FIRST_TASK_TODO_ART_ID;
+		else if (column.equals("ToTest"))
+			obsProperty = OBS_PROPERTY_FIRST_TASK_TOTEST_ART_ID;
+		else
+			throw new RuntimeException(column);
 
+		String artifactId = getFirstTaskArtifactId(getColumn(column));
+		updateObsProperty(obsProperty, artifactId);		
+	}
+	
+	private String getFirstTaskArtifactId(BoardColumn column) {
+		String firstTaskArtifactId = "";
+		if (!column.getTasks().isEmpty()) {
+			firstTaskArtifactId = column.getTasks().get(0).getArtifactId();
+		}
+
+		return firstTaskArtifactId;		
+	}
+	
 	private Task getTaskFromColumn(String taskArtifactId, String columnFrom) {
 		BoardColumn column = getColumn(columnFrom);
-		if (column != null)
-			return column.popTask(taskArtifactId);
-		else		
-			throw new RuntimeException("Task " + taskArtifactId + " not found");
+		if (column != null) {
+			Task task = column.popTask(taskArtifactId);	
+			if (task != null)
+				return task;
+		}
+		
+		throw new RuntimeException("Task " + taskArtifactId + " not found");
 	}
 	
 	private void addTaskToColumn(Task task, String columnTo) {
@@ -73,5 +105,5 @@ public class Board extends GUIArtifact {
 	
 	private void update() {
 		view.update(columns);
-	}
+	}	
 }

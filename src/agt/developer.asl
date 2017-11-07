@@ -21,8 +21,8 @@
 
 +doingTask(TaskArtId) : boardArtId(BoardArtId)
 	<-
-		!doTask(TaskArtId);
-		moveTask(TaskArtId, "Doing", "Test")[artifact_id(BoardArtId)];
+		!doTask(TaskArtId, BoardArtId);
+		moveTask(TaskArtId, "Doing", "ToTest")[artifact_id(BoardArtId)];
 		.
 		
 +idle : boardArtId(BoardArtId) & firstTaskTodoArtId(TaskArtId)[artifact_id(BoardArtId)] & not(TaskArtId = "")
@@ -41,18 +41,12 @@
 		lookupArtifact(TaskArtIdString, TaskArtId);
 		focus(TaskArtId);
 		.
-
-+!idle
-	<- 
-		.print("Any task todo found");
-		.wait(5000); 
-		-+idle
-		.
 		
-+!doTask(TaskArtId)
++!doTask(TaskArtIdString, BoardArtId)
 	<-
-		.print("Doing task ", TaskArtId);
+		.print("Developing task ", TaskArtIdString);
 		.wait(10000);
-		.print("Task ", TaskArtId, " done!");
+		moveTask(TaskArtIdString, "Doing", "ToTest", "")[artifact_id(BoardArtId)];
+		.print("Task ", TaskArtIdString, " developed!");
 		.
 
