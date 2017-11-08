@@ -74,7 +74,7 @@ public class Board extends GUIArtifact {
 	}
 	
 	private boolean columnHaveFirstTaskArtifactId(String column) {
-		return !column.equals("Doing");		
+		return !column.equals("Doing") && !column.equals("Testing") && !column.equals("Done");		
 	}
 	
 	private String getFirstTaskArtifactId(BoardColumn column) {

@@ -46,11 +46,11 @@
 +!testTask(TaskArtId)
 	<-
 		.print("Testing task ", TaskArtId);
-		.wait(10000);
+		.wait(3000);
 		.print("Task ", TaskArtId, " tested!");
 		.
 		
 +!moveToDone(TaskArtId, BoardArtId)
 	<-
-		moveTask(TaskArtId, "Testing", "Done")[artifact_id(BoardArtId)];
+		moveTask(TaskArtId, "Testing", "Done", "")[artifact_id(BoardArtId)];
 		.
