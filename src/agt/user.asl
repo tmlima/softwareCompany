@@ -1,17 +1,18 @@
-// Agent user in project softwareCompany
+{ include("$jacamoJar/templates/common-cartago.asl") }
+{ include("$jacamoJar/templates/common-moise.asl") }
 
 /* Initial beliefs and rules */
 
 /* Initial goals */
 
-!start.
-
 /* Plans */
 
-+!start : true <- .print("hello world.").
-
-{ include("$jacamoJar/templates/common-cartago.asl") }
-{ include("$jacamoJar/templates/common-moise.asl") }
-
-// uncomment the include below to have a agent that always complies with its organization  
-//{ include("$jacamoJar/templates/org-obedient.asl") }
++project(ProjectName)
+	<-
+		.print("Analysing requirments");
+		.wait(5000);
+		lookupArtifact("requirements", RequirementsArtId);
+		focus(RequirementsArtId);
+		userApproval[artifact_id(RequirementsArtId)];
+		.print("Requirements document approved");
+		.

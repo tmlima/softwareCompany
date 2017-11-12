@@ -6,22 +6,34 @@
 
 /* Plans */
 
-+createTasksForRequirement(RequirementName)
++project(ProjectName)
 	<-
-		.print("Creating tasks for project ", RequirementName).
+		.print("Analysing requirments");
+		.wait(5000);
+		makeArtifact("requirements", "softwareCompany.tools.RequirementDocumentArt", [], DocumentArtId);
+		focus(DocumentArtId);
+		!signDocument;
+		!sendRequirementsDocumentToUser(ProjectName);
+		.
 
-+requirement(ProjectName, RequirementArtifactName)
-	<-	
-	!createTasksFromRequirement(RequirementArtifactName)
-	.
++bothApproved <- !createTasksFromRequirement.
 
-+!createTasksFromRequirement(RequirementArtifactName)
++!sendRequirementsDocumentToUser(ProjectName)
 	<-
-		.concat(RequirementArtifactName, "_task1", TaskName1);
-		!createTask(TaskName1);
+		.send(user, tell, project(ProjectName));
+		.
 		
-		.concat(RequirementArtifactName, "_task2", TaskName2);
-		!createTask(TaskName2);
++!signDocument
+	<-
+		analystApproval[artifact_id(DocumentArtId)];
+		.print("Requirements document approved");
+		.
+
++!createTasksFromRequirement
+	<-
+		!createTask("login");
+		!createTask("firstCrud");
+		!createTask("secondCrud");
       	.
 
 +!createTask(TaskName)

@@ -15,7 +15,9 @@ mas softwareCompany {
             players: manager manager,
                      developer developer,
                      analyst  analyst,
-                     tester tester
+                     tester tester,
+                     proj_owner proj_owner,
+                     user user
         }
         scheme develop_software_eng: develop_software_sch {
         } 

@@ -1,17 +1,35 @@
-// Agent owner in project softwareCompany
+{ include("common.asl") }
 
 /* Initial beliefs and rules */
 
-/* Initial goals */
+!needItSolution.
 
-!start.
+/* Initial goals */
 
 /* Plans */
 
-+!start : true <- .print("hello world.").
++!needItSolution
+	<-
+		ProjectName = "projectOne";	
+		!hireSoftwareCompany(ProjectName);
+		.
+		
++!hireSoftwareCompany(ProjectName)
+	<-
+		ProjectName = "projectOne";
+		.print("Hiring software company for project ", ProjectName);
+		makeArtifact("contract", "softwareCompany.tools.ContractArt", [], ContractArtId);
+		!callManager(ProjectName, ContractArtId);
+		!signContract;
+		.
 
-{ include("$jacamoJar/templates/common-cartago.asl") }
-{ include("$jacamoJar/templates/common-moise.asl") }
++!signContract
+	<-
+		clientSign[artifact_id(ContractArtId)];
+		.print("Client signed");
+		.
 
-// uncomment the include below to have a agent that always complies with its organization  
-//{ include("$jacamoJar/templates/org-obedient.asl") }
++!callManager(ProjectName, ContractArtId)
+	<-
+		.send(manager, tell, project(ProjectName));
+		.

@@ -8,6 +8,13 @@
 
 +project(Name) 
 	<- 
+		!signContract;
+		.
+
++bothSigned
+	<-
+		Name = "Project1";
+		.print("Both signed");
 		.print("Starting project ", Name);
 		.print("Assigning requirements to analyst");
 		
@@ -15,18 +22,20 @@
       	focus(OrgArtId);
       
 		makeArtifact("board", "softwareCompany.gui.Board");
-		!sendRequirementsToAnalyst(Name);
+		!tellAnalystToAnalyseRequirements(Name);
 		!assignDevsToProject(Name);
 		!assignTestersToProject(Name);
 		.
-	
-+!sendRequirementsToAnalyst(ProjectName)
+
++!signContract
 	<-
-		for (requirement(ProjectName,RequirementArtifactName)) {
-			.send(analyst, tell, requirement(ProjectName,RequirementArtifactName));
-		}	
-		.send(analyst, tell, project(ProjectName))
+		lookupArtifact("contract", ContractArtId);
+		focus(ContractArtId);
+		companySign[artifact_id(ContractArtId)];
+		.print("Manager signed");
+//		?bothSigned;
 		.
-		
+
++!tellAnalystToAnalyseRequirements(ProjectName) <- .send(analyst, tell, project(ProjectName)).
 +!assignDevsToProject(ProjectName) <- !send_role(developer, project(ProjectName)).
 +!assignTestersToProject(ProjectName) <- !send_role(tester, project(ProjectName)).

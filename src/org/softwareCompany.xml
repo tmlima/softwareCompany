@@ -5,7 +5,6 @@
 <organisational-specification 
     id="softwareInc"
     os-version="0.8"
-  
     xmlns='http://moise.sourceforge.net/os'
     xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
     xsi:schemaLocation='http://moise.sourceforge.net/os
@@ -14,29 +13,27 @@
 <structural-specification>
 
 <role-definitions>
-	<role id="client" />
 	<role id="software_company" />
 	<role id="manager"><extends role="software_company" /></role>
 	<role id="analyst"><extends role="software_company" /></role>
     <role id="developer"><extends role="software_company" /></role>
    	<role id="tester"><extends role="software_company" /></role>
+   	<role id="client" />
+	<role id="proj_owner"><extends role="client" /></role>
+	<role id="user"><extends role="client" /></role>
 </role-definitions>
 
 <group-specification id="projectTeam">
     <roles>
-    	<role id="client" min="1" max="1" />
  	    <role id="manager" min="1" max="1"/>
         <role id="analyst" min="1" max="1"/>
         <role id="developer" min="1" max="10"/>
         <role id="tester" min="1" max="4"/>
+		<role id="proj_owner" min="1" max="1"/>
+        <role id="user" min="1" max="1"/>
     </roles>
- 
-    <links>
-		<link from="client" to="software_company" type="authority" scope="intra-group" bi-dir="false"/>
-      	<link from="developer" to="tester" type="communication" scope="intra-group" bi-dir="true"/>
-    </links>
-
 </group-specification>
+
 </structural-specification>
 
 <functional-specification>
