@@ -36,7 +36,12 @@
 		lookupArtifact(TaskArtIdString, TaskArtId);
 		focus(TaskArtId);
 		.
-		
+
+-!getTask(TaskArtIdString, BoardArtId)[error_msg(ErrorMsg)]  
+	<-
+		.print("Error when getting task from board:", ErrorMsg);
+		.
+			
 +!codeTask(TaskArtIdString)
 	<-
 		.print("Developing task ", TaskArtIdString);
@@ -51,6 +56,10 @@
 		.
 
 +!moveToTest(TaskArtIdString, BoardArtId)
+	<-
+		moveTask(TaskArtIdString, "Doing", "ToTest", "")[artifact_id(BoardArtId)];
+		.
+-!moveToTest(TaskArtIdString, BoardArtId)[error_msg(ErrorMsg)]
 	<-
 		moveTask(TaskArtIdString, "Doing", "ToTest", "")[artifact_id(BoardArtId)];
 		.

@@ -5,9 +5,11 @@ mas softwareCompany {
 	agent manager
 	agent analyst
 	agent developer {
-		instances: 2
+		instances: 4
 	}
-	agent tester
+	agent tester {
+		instances: 3
+	}
 
     organisation softwareCompany_org: softwareCompany.xml {
         group p_team: projectTeam {

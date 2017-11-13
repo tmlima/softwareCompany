@@ -18,6 +18,8 @@
 
 +bothApproved <- !createTasksFromRequirement.
 
++allTasksDone <- .print("all tasks done. removing them...").
+
 +!sendRequirementsDocumentToUser(ProjectName)
 	<-
 		.send(user, tell, project(ProjectName));
@@ -32,9 +34,15 @@
 +!createTasksFromRequirement
 	<-
 		!createTask("login");
-		!createTask("firstCrud");
-		!createTask("secondCrud");
-      	.
+		!createTask("crud1");
+		!createTask("crud2");
+		!createTask("crud3");
+		!createTask("crud4");
+		!createTask("crud5");
+		!createTask("crud6");
+		!createTask("crud7");
+		!createTask("crud8");
+  		.
 
 +!createTask(TaskName)
 	<-

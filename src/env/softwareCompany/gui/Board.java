@@ -52,24 +52,30 @@ public class Board extends GUIArtifact {
 
 			updateFirstTaskArtifactId(columnFrom);
 			updateFirstTaskArtifactId(columnTo);
-		}catch (Exception e) {
-			e.printStackTrace();
+			
+			if (allTasksDone())
+				defineObsProperty("allTasksDone");
+		} catch (Exception e) {
 			failed("MoveTask: " + e.getMessage());
 		}
 	}
-
+	
 	private void updateFirstTaskArtifactId(String column) {
-		if  (columnHaveFirstTaskArtifactId(column)) {
-			String obsProperty;
-			if (column.equals("Todo"))
-				obsProperty = OBS_PROPERTY_FIRST_TASK_TODO_ART_ID;
-			else if (column.equals("ToTest"))
-				obsProperty = OBS_PROPERTY_FIRST_TASK_TOTEST_ART_ID;
-			else
-				throw new RuntimeException(column);
+		try {
+			if  (columnHaveFirstTaskArtifactId(column)) {
+				String obsProperty;
+				if (column.equals("Todo"))
+					obsProperty = OBS_PROPERTY_FIRST_TASK_TODO_ART_ID;
+				else if (column.equals("ToTest"))
+					obsProperty = OBS_PROPERTY_FIRST_TASK_TOTEST_ART_ID;
+				else
+					throw new RuntimeException(column);
 
-			String artifactId = getFirstTaskArtifactId(getColumn(column));
-			updateObsProperty(obsProperty, artifactId);			
+				String artifactId = getFirstTaskArtifactId(getColumn(column));
+				updateObsProperty(obsProperty, artifactId);			
+			}			
+		}catch (Exception e) {
+			throw new RuntimeException("updateFirstTaskArtifactId: " + e.getMessage());
 		}
 	}
 	
@@ -94,12 +100,17 @@ public class Board extends GUIArtifact {
 				return task;
 		}
 		
-		throw new RuntimeException("Task " + taskArtifactId + " not found");
+		failed("Task " + taskArtifactId + " not found");
+		return null;
 	}
 	
 	private void addTaskToColumn(Task task, String columnTo) {
-		getColumn(columnTo).addTask(task);
-		update();
+		try {
+			getColumn(columnTo).addTask(task);
+			update();	
+		} catch (Exception e) {
+			throw new RuntimeException("Board.addTaskToColumn: " + e.getMessage());
+		}
 	}
 	
 	private BoardColumn getColumn(String columnName) {
@@ -112,6 +123,19 @@ public class Board extends GUIArtifact {
 	}
 	
 	private void update() {
-		view.update(columns);
+		try {
+			view.update(columns);	
+		} catch (Exception e) {
+			throw new RuntimeException("Board.update:" + e.getMessage());
+		}
 	}	
+	
+	private boolean allTasksDone() {
+        for (BoardColumn c : columns) {
+        	if (!c.getName().equals("Done") && !c.getTasks().isEmpty())
+        		return false;
+        }
+        
+        return true;
+	}
 }
