@@ -16,7 +16,7 @@ public class BoardTask {
 	}
 	
 	public void draw(Graphics g, int x, int y) {
-		g.setColor(Color.WHITE);
+		g.setColor(Color.YELLOW);
 		g.fillRect(x, y, 150, this.POSTIT_HEIGHT);
 		g.setColor(Color.BLUE);
 		g.setFont(new Font("Arial", Font.PLAIN, FONT_SIZE));

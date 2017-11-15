@@ -11,7 +11,7 @@ public class BoardView extends JFrame {
 	BoardPanel panel;
 	
 	public BoardView() {
-		setSize(1200,800);
+		setSize(1600,1000);
 		
 		panel = new BoardPanel(this);
 		

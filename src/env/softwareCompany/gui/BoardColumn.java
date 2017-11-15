@@ -1,6 +1,7 @@
 package softwareCompany.gui;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,7 @@ public class BoardColumn {
 
 	public static final int WIDTH = 170;
 	private static final int DISTANCE_BETWEEN_POSTITS = 10;
+	private static final int FONT_SIZE = 24;
 	
 	private String name;
 	private List<Task> tasks;
@@ -25,9 +27,14 @@ public class BoardColumn {
 	
 	public void draw(Graphics g, int x) {
 		int y = 100;
-		g.setColor(Color.LIGHT_GRAY);
-		g.fillRect(x, y, this.WIDTH, 500);
+		g.setColor(Color.WHITE);
+		g.fillRect(x, y, this.WIDTH, 800);
 
+		g.setColor(Color.GREEN);
+		g.setFont(new Font("Arial", Font.PLAIN, FONT_SIZE));
+		y += FONT_SIZE;
+		g.drawString(this.getName(), x, y);
+		
 		x += 10;
 		for(int i=0; i<tasks.size(); i++) {
 			y += this.DISTANCE_BETWEEN_POSTITS + BoardTask.POSTIT_HEIGHT;
