@@ -21,8 +21,7 @@
 		
 +idle : boardArtId(BoardArtId) & firstTaskTodoArtId(TaskArtId)[artifact_id(BoardArtId)] & not(TaskArtId = "")
 	<-
-		!getTask(TaskArtId, BoardArtId);
-		-idle;	
+		-idle;
 		!doTask(TaskArtId);
 		+idle;
 		.
@@ -33,17 +32,14 @@
 		
 +deployApproved <- !deploy.
 
+
+
 +!getTask(TaskArtIdString, BoardArtId) : .my_name(Name)
 	<-
 		.print("Found task ", TaskArtIdString, " todo");
 		moveTask(TaskArtIdString, "Todo", "Doing", Name)[artifact_id(BoardArtId)];
 		lookupArtifact(TaskArtIdString, TaskArtId);
 		focus(TaskArtId);
-		.
-
--!getTask(TaskArtIdString, BoardArtId)[error_msg(ErrorMsg)]  
-	<-
-		.print("Error when getting task from board:", ErrorMsg);
 		.
 			
 +!codeTask(TaskArtIdString)
@@ -55,9 +51,12 @@
 
 +!doTask(TaskArtId) : boardArtId(BoardArtId)
 	<-
+		!getTask(TaskArtId, BoardArtId);
 		!codeTask(TaskArtId);
 		!moveToTest(TaskArtId, BoardArtId);
 		.
+		
+-!doTask(TaskArtId)[error_msg(ErrorMsg)] <- .print("Error when doing task ", TaskArtId, ": ", ErrorMsg).		
 
 +!moveToTest(TaskArtIdString, BoardArtId)
 	<-

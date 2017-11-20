@@ -39,7 +39,6 @@
 
 +!createTasksFromRequirement
 	<-
-		!createTask("login");
 		!createTask("crud1");
 		!createTask("crud2");
 		!createTask("crud3");
@@ -48,6 +47,10 @@
 		!createTask("crud6");
 		!createTask("crud7");
 		!createTask("crud8");
+		!createTask("crud9");
+		!createTask("crud10");
+		!createTask("crud11");
+		!createTask("crud12");
   		.
 
 +!createTask(TaskName)
