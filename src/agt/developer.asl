@@ -29,6 +29,10 @@
 
 +idle : true <- !idle.
 
++readyToDeploy <- !getOwnerApproval.
+		
++deployApproved <- !deploy.
+
 +!getTask(TaskArtIdString, BoardArtId) : .my_name(Name)
 	<-
 		.print("Found task ", TaskArtIdString, " todo");
@@ -62,4 +66,17 @@
 -!moveToTest(TaskArtIdString, BoardArtId)[error_msg(ErrorMsg)]
 	<-
 		moveTask(TaskArtIdString, "Doing", "ToTest", "")[artifact_id(BoardArtId)];
+		.
+
++!getOwnerApproval
+	<-
+		.print("Getting Owner approval");
+		.send(proj_owner, tell, readyToDeploy);		
+		.
+
++!deploy
+	<-
+		.print("Deploying");
+		.wait(5000);
+		.print("Deployed");
 		.

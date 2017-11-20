@@ -8,6 +8,13 @@
 
 /* Plans */
 
++readyToDeploy[source(Developer)] 
+	<- 
+		.print("Deploy approved");
+		.wait(1000);		
+		.send(Developer, tell, deployApproved);
+		.
+
 +!needItSolution
 	<-
 		ProjectName = "projectOne";	

@@ -18,7 +18,13 @@
 
 +bothApproved <- !createTasksFromRequirement.
 
-+allTasksDone <- .print("all tasks done. removing them...").
++allTasksDone 
+	<- 
+		.print("All tasks done!");
+		.wait(3000);
+		!remove_tasks_from_board;
+		!tell_developer_to_deploy;
+		.	
 
 +!sendRequirementsDocumentToUser(ProjectName)
 	<-
@@ -59,4 +65,19 @@
 		.print("Adding task ", TaskId, " to board");
 		.term2string(TaskId, TaskIdString);
 		addTask(TaskArtId, TaskIdString)[artifact_id(BoardArtId)]
+		.
+		
++!remove_tasks_from_board
+	<-
+		.print("Removing tasks from board");
+		lookupArtifact("board", BoardArtId);
+		focus(BoardArtId);
+		removeAllTasks[artifact_id(BoardArtId)]
+		.
+	
++!tell_developer_to_deploy
+	<-
+		.print("Telling developer to deploy");
+		.wait(1000);
+		.send(developer1, tell, readyToDeploy);
 		.

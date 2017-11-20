@@ -61,4 +61,8 @@ public class BoardColumn {
 	public List<Task> getTasks() {
 		return tasks;
 	}
+
+	public void removeAllTasks() {
+		tasks.clear();		
+	}
 }

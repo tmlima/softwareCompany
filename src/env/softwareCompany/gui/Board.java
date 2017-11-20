@@ -59,6 +59,16 @@ public class Board extends GUIArtifact {
 			failed("MoveTask: " + e.getMessage());
 		}
 	}
+
+	@OPERATION public void removeAllTasks() {
+		try {
+			for (BoardColumn c : columns)
+				c.removeAllTasks();
+				update();
+		} catch (Exception e) {
+			failed("RemoveAllTasks: " + e.getMessage());
+		}
+	}
 	
 	private void updateFirstTaskArtifactId(String column) {
 		try {
