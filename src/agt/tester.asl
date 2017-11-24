@@ -40,7 +40,15 @@
 +!doTask(TaskArtId) : boardArtId(BoardArtId)
 	<-
 		!testTask(TaskArtId);
-		!moveToDone(TaskArtId, BoardArtId);
+		!moveTask(TaskArtId, BoardArtId);
+		.
+		
++!testTask(TaskArtId) : .random(N) & N > 0.6
+	<-
+		.print("Testing task ", TaskArtId);
+		.wait(3000);
+		.print("Bug found on task ", TaskArtId, "!");
+		+bugFound;
 		.
 		
 +!testTask(TaskArtId)
@@ -49,8 +57,14 @@
 		.wait(3000);
 		.print("Task ", TaskArtId, " tested!");
 		.
+
++!moveTask(TaskArtId, BoardArtId) : bugFound
+	<-
+		moveTask(TaskArtId, "Testing", "Todo", "")[artifact_id(BoardArtId)];
+		-bugFound;
+		.		
 		
-+!moveToDone(TaskArtId, BoardArtId)
++!moveTask(TaskArtId, BoardArtId)
 	<-
 		moveTask(TaskArtId, "Testing", "Done", "")[artifact_id(BoardArtId)];
 		.
