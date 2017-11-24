@@ -21,7 +21,7 @@ public class BoardTask {
 		g.setColor(Color.BLUE);
 		g.setFont(new Font("Arial", Font.PLAIN, FONT_SIZE));
 		y += FONT_SIZE;
-		g.drawString(task.getName(), x, y);
+		g.drawString("Task " + task.getName() + " (" + task.getSize() + ")", x, y);
 		y += FONT_SIZE;
 		if (task.getPersonResponsible() != null)
 			g.drawString(task.getPersonResponsible(), x, y);

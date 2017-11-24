@@ -45,7 +45,9 @@
 +!codeTask(TaskArtIdString)
 	<-
 		.print("Developing task ", TaskArtIdString);
-		.wait(5000);
+		size(Size)[artifact_id(TaskArtIdString)];
+		.term2string(SizeNumber, Size);
+		.wait(SizeNumber * 1000);
 		.print("Task ", TaskArtIdString, " developed!");
 		.
 

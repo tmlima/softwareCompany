@@ -7,7 +7,7 @@
 /* Plans */
 
 +project(ProjectName)
-	<-
+	<-	
 		.print("Analysing requirments");
 		.wait(5000);
 		makeArtifact("requirements", "softwareCompany.tools.RequirementDocumentArt", [], DocumentArtId);
@@ -53,21 +53,24 @@
 		!createTask("crud12");
   		.
 
-+!createTask(TaskName)
++!createTask(TaskName) : .random(N)
 	<-
 		.print("Creating task ", TaskName);
-		makeArtifact(TaskName, "softwareCompany.tools.TaskArt", [], TaskArtId);
+		Size = math.round(N * 10);
+		.term2string(Size, SizeString);
+		makeArtifact(TaskName, "softwareCompany.tools.TaskArt", [TaskName, SizeString], TaskArtId);
 		focus(TaskArtId);
 		!addTaskToBoard(TaskArtId);
 		.
 		
-+!addTaskToBoard(TaskArtId) : id(TaskId)[artifact_id(TaskArtId)]
++!addTaskToBoard(TaskArtId) : id(TaskId)[artifact_id(TaskArtId)] & size(TaskSize)[artifact_id(TaskArtId)]
 	<-
 		lookupArtifact("board", BoardArtId);
 		focus(BoardArtId);
 		.print("Adding task ", TaskId, " to board");
 		.term2string(TaskId, TaskIdString);
-		addTask(TaskArtId, TaskIdString)[artifact_id(BoardArtId)]
+		.term2string(TaskSize, TaskSizeString);
+		addTask(TaskArtId, TaskIdString, TaskSize)[artifact_id(BoardArtId)]
 		.
 		
 +!remove_tasks_from_board

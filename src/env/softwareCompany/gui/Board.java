@@ -34,8 +34,8 @@ public class Board extends GUIArtifact {
 		columns.add(new BoardColumn("Done"));
 	}
 	
-	@OPERATION public void addTask(ArtifactId artifactId, String name) {
-		Task task = new Task(artifactId.toString(), name);
+	@OPERATION public void addTask(ArtifactId artifactId, String name, String size) {
+		Task task = new Task(artifactId.toString(), name, Integer.parseInt(size));
 		addTaskToColumn(task, "Todo");
 		if (getObsProperty(OBS_PROPERTY_FIRST_TASK_TODO_ART_ID).getValue().toString().isEmpty())
 			updateObsProperty(OBS_PROPERTY_FIRST_TASK_TODO_ART_ID, artifactId.toString());

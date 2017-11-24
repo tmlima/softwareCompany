@@ -5,10 +5,12 @@ public class Task {
 	private String artifactId;
 	private String name;
 	private String personResponsible;
+	private int size;
 	
-	public Task(String artifactId, String name) {
+	public Task(String artifactId, String name, int size) {
 		this.artifactId = artifactId;
 		this.name = name;
+		this.size = size;
 	}
 
 	public String getArtifactId() {
@@ -25,5 +27,9 @@ public class Task {
 	
 	public String getPersonResponsible() {
 		return personResponsible;
+	}
+
+	public int getSize() {
+		return size;
 	}
 }
