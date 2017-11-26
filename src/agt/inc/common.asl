@@ -11,7 +11,6 @@
 		
 +!idle
 	<- 
-		.print("Any task todo found");
 		.wait(5000); 
 		-+idle
 		.
