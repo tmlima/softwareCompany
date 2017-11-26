@@ -2,7 +2,7 @@
 
 /* Initial beliefs and rules */
 
-!needItSolution.
+!hire_software_company.
 
 /* Initial goals */
 
@@ -15,7 +15,7 @@
 		.send(Developer, tell, deployApproved);
 		.
 
-+!needItSolution
++!hire_software_company
 	<-
 		ProjectName = "projectOne";	
 		!hireSoftwareCompany(ProjectName);

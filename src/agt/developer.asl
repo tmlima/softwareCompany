@@ -4,11 +4,7 @@
 
 /* Initial goals */
 
-!start.
-
 /* Plans */
-
-+!start : true.
 
 +project(ProjectName) 
 	<- 	

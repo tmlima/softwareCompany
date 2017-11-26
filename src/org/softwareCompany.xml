@@ -24,15 +24,6 @@
 	</role-definitions>
 
 	<group-specification id="softwareProj">
-	    <roles>
-	 	    <role id="manager" min="1" max="1"/>
-	        <role id="analyst" min="1" max="1"/>
-	        <role id="developer" min="1" max="10"/>
-	        <role id="tester" min="1" max="4"/>
-			<role id="proj_owner" min="1" max="1"/>
-	        <role id="user" min="1" max="1"/>
-	    </roles>
-
 	    <subgroups>
 			<group-specification id="projectTeam">
 			    <roles>
@@ -40,8 +31,6 @@
 			        <role id="analyst" min="1" max="1"/>
 			        <role id="developer" min="1" max="10"/>
 			        <role id="tester" min="1" max="4"/>
-					<role id="proj_owner" min="1" max="1"/>
-			        <role id="user" min="1" max="1"/>
 			    </roles>	    
 		    </group-specification>
 			<group-specification id="client">
@@ -57,34 +46,43 @@
 
 <functional-specification>
     <scheme id="develop_software_sch">
-        <goal id="software_deployed">
+        <goal id="deliver_system">
             <plan operator="sequence">
-                <goal id="all_requirements_created" ttf="10 minutes"/>
-            	<goal id="all_requirements_developed" ttf="10 minutes"/>
-                <goal id="all_requirements_tested" ttf="10 minutes"/>
-                <goal id="release_deployed" ttf="10 minutes"/>
-            </plan>
+            	<goal id="create_project">
+            		<plan operator="sequence">
+						<goal id="hire_software_company"/>
+						<goal id="analyse_requirements"/>
+					</plan>
+				</goal>
+                <goal id="create_tasks"/>
+            	<goal id="code_tasks"/>
+                <goal id="test_tasks"/>
+                <goal id="deliver_sprint">
+	                <plan operator="sequence">
+	                	<goal id="finalize_sprint"/>
+	                	<goal id="deploy"/>
+	                </plan>
+                </goal>
+			</plan>
         </goal>
-
-       	<mission id="create_all_requirements" min="1" max="1">
-            <goal id="all_requirements_created"/>
+        
+       	<mission id="hire_software_company">
+            <goal id="hire_software_company"/>
         </mission>
-        <mission id="develop_all_requirements" min="1" max="1">
-            <goal id="all_requirements_developed"/>
+        <mission id="deploy">
+        	<goal id="deploy"/>
         </mission>
-		<mission id="test_all_requirements" min="1" max="1">
-            <goal id="all_requirements_tested"/>
+        <mission id="finalize_sprint">
+        	<goal id="finalize_sprint"/>
         </mission>
-		<mission id="deploy_release" min="1" max="1">
-            <goal id="release_deployed"/>
-        </mission>
+        
     </scheme>
 </functional-specification>
 
 <normative-specification>
-	<norm id="norm1" type="obligation" role="client" mission="create_all_requirements"/>
-    <norm id="norm2" type="obligation" role="developer" mission="develop_all_requirements"/>
-    <norm id="norm3" type="obligation" role="tester" mission="test_all_requirements"/>
+	<norm id="norm1" type="obligation" role="proj_owner" mission="hire_software_company"/>
+    <norm id="norm2" type="obligation" role="developer" mission="deploy"/>
+    <norm id="norm3" type="obligation" role="analyst" mission="finalize_sprint"/>
 </normative-specification>
 
 </organisational-specification>
