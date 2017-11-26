@@ -37,15 +37,18 @@
 +!getTask(TaskArtIdString, BoardArtId) : .my_name(Name)
 	<-
 		.print("Found task ", TaskArtIdString, " todo");
-		moveTask(TaskArtIdString, "Todo", "Doing", Name)[artifact_id(BoardArtId)];
 		lookupArtifact(TaskArtIdString, TaskArtId);
 		focus(TaskArtId);
+		setPersonResponsible(Name)[artifact_id(TaskArtId)];
+		?personResponsible(Responsible)[artifact_id(TaskArtId)];
+		moveTask(TaskArtIdString, "Todo", "Doing", Responsible)[artifact_id(BoardArtId)];
 		.
 			
 +!codeTask(TaskArtIdString)
 	<-
 		.print("Developing task ", TaskArtIdString);
-		size(Size)[artifact_id(TaskArtIdString)];
+		lookupArtifact(TaskArtIdString, TaskArtId);
+		?size(Size)[artifact_id(TaskArtId)];		
 		.term2string(SizeNumber, Size);
 		.wait(SizeNumber * 1000);
 		.print("Task ", TaskArtIdString, " developed!");

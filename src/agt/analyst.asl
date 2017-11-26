@@ -63,7 +63,7 @@
 		!addTaskToBoard(TaskArtId);
 		.
 		
-+!addTaskToBoard(TaskArtId) : id(TaskId)[artifact_id(TaskArtId)] & size(TaskSize)[artifact_id(TaskArtId)]
++!addTaskToBoard(TaskArtId) : artifactId(TaskId)[artifact_id(TaskArtId)] & size(TaskSize)[artifact_id(TaskArtId)]
 	<-
 		lookupArtifact("board", BoardArtId);
 		focus(BoardArtId);

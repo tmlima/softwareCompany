@@ -31,10 +31,12 @@
 
 +!getTask(TaskArtIdString, BoardArtId) : .my_name(Name)
 	<-
-		.print("Found task ", TaskArtIdString, " todo");
-		moveTask(TaskArtIdString, "ToTest", "Testing", Name)[artifact_id(BoardArtId)];
+		.print("Found task ", TaskArtIdString, " to test");
 		lookupArtifact(TaskArtIdString, TaskArtId);
 		focus(TaskArtId);
+		setPersonResponsible(Name)[artifact_id(TaskArtId)];
+		?personResponsible(Responsible)[artifact_id(TaskArtId)];
+		moveTask(TaskArtIdString, "ToTest", "Testing", Responsible)[artifact_id(BoardArtId)];
 		.
 
 +!doTask(TaskArtId) : boardArtId(BoardArtId)
