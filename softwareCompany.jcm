@@ -1,14 +1,13 @@
 mas softwareCompany {
 	agent user
 	agent proj_owner
-	agent client
 	agent manager
 	agent analyst
 	agent developer {
-		instances: 4
+		instances: 5
 	}
 	agent tester {
-		instances: 3
+		instances: 5
 	}
 
     organisation softwareCompany_org: softwareCompany.xml {

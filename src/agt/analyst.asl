@@ -53,7 +53,7 @@
 		!createTask("crud12");
   		.
 
-+!createTask(TaskName) : .random(N)
++!createTask(TaskName) : .random(N) & N > 0
 	<-
 		.print("Creating task ", TaskName);
 		Size = math.round(N * 10);
@@ -81,9 +81,9 @@
 		removeAllTasks[artifact_id(BoardArtId)]
 		.
 	
-+!tell_developer_to_deploy
++!tell_developer_to_deploy : play(Developer,developer,p_team)
 	<-
 		.print("Telling developer to deploy");
 		.wait(1000);
-		.send(developer1, tell, readyToDeploy);
+		.send(Developer, tell, readyToDeploy);
 		.

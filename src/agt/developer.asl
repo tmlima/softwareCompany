@@ -61,13 +61,14 @@
 
 +!moveToTest(TaskArtIdString, BoardArtId)
 	<-
+		!removePersonReponsible(TaskArtId);
 		moveTask(TaskArtIdString, "Doing", "ToTest", "")[artifact_id(BoardArtId)];
 		.
 -!moveToTest(TaskArtIdString, BoardArtId)[error_msg(ErrorMsg)]
 	<-
 		moveTask(TaskArtIdString, "Doing", "ToTest", "")[artifact_id(BoardArtId)];
 		.
-
+		
 +!getOwnerApproval
 	<-
 		.print("Getting Owner approval");
@@ -78,5 +79,6 @@
 	<-
 		.print("Deploying");
 		.wait(5000);
-		.print("Deployed");
+		.send(proj_owner, tell, deployed);		
+		.print("Deployed");		
 		.

@@ -8,6 +8,13 @@
 +!send_role(Role, Message) : .findall(Agent, play(Agent, Role, _), Group)
 	<-
 		.send(Group, tell, Message).
+
++!removePersonReponsible(TaskArtIdString)
+	<-
+		lookupArtifact(TaskArtIdString, TaskArtId);
+		focus(TaskArtId);
+		setPersonResponsible("")[artifact_id(TaskArtId)]
+		.		
 		
 +!idle
 	<- 

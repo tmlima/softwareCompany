@@ -15,6 +15,11 @@
 		.send(Developer, tell, deployApproved);
 		.
 
++deployed[source(Developer)]
+	<-
+	.broadcast(tell,deployed);
+	.
+	
 +!hire_software_company
 	<-
 		ProjectName = "projectOne";	

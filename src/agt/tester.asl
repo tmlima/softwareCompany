@@ -45,11 +45,14 @@
 		!moveTask(TaskArtId, BoardArtId);
 		.
 		
-+!testTask(TaskArtId) : .random(N) & N > 0.6
++!testTask(TaskArtIdString) : .random(N) & N > 0.6
 	<-
-		.print("Testing task ", TaskArtId);
-		.wait(3000);
-		.print("Bug found on task ", TaskArtId, "!");
+		.print("Testing task ", TaskArtIdString);
+		lookupArtifact(TaskArtIdString, TaskArtId);
+		?size(Size)[artifact_id(TaskArtId)];		
+		.term2string(SizeNumber, Size);
+		.wait((SizeNumber * 1000) / 3);
+		.print("Bug found on task ", TaskArtIdString, "!");
 		+bugFound;
 		.
 		
@@ -62,11 +65,13 @@
 
 +!moveTask(TaskArtId, BoardArtId) : bugFound
 	<-
+		!removePersonReponsible(TaskArtId);
 		moveTask(TaskArtId, "Testing", "Todo", "")[artifact_id(BoardArtId)];
 		-bugFound;
 		.		
 		
 +!moveTask(TaskArtId, BoardArtId)
 	<-
+		!removePersonReponsible(TaskArtId);	
 		moveTask(TaskArtId, "Testing", "Done", "")[artifact_id(BoardArtId)];
 		.
