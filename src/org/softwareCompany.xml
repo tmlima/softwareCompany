@@ -20,7 +20,7 @@
 	   	<role id="tester"><extends role="software_company" /></role>
 	   	<role id="client" />
 		<role id="proj_owner"><extends role="client" /></role>
-		<role id="user"><extends role="client" /></role>
+		<role id="admin"><extends role="client" /></role>
 	</role-definitions>
 
 	<group-specification id="softwareProj">
@@ -36,7 +36,7 @@
 			<group-specification id="client">
 			    <roles>
 					<role id="proj_owner" min="1" max="1"/>
-			        <role id="user" min="1" max="1"/>
+			        <role id="admin" min="1" max="1"/>
 			    </roles>	    
 		    </group-specification>
 	    </subgroups>
@@ -48,13 +48,8 @@
     <scheme id="develop_software_sch">
         <goal id="deliver_system">
             <plan operator="sequence">
-            	<goal id="create_project">
-            		<plan operator="sequence">
-						<goal id="hire_software_company"/>
-						<goal id="analyse_requirements"/>
-					</plan>
-				</goal>
-                <goal id="create_tasks"/>
+				<goal id="analyse_requirements"/>                
+				<goal id="create_tasks"/>
             	<goal id="code_tasks"/>
                 <goal id="test_tasks"/>
                 <goal id="deliver_sprint">
@@ -66,23 +61,37 @@
 			</plan>
         </goal>
         
-       	<mission id="hire_software_company">
-            <goal id="hire_software_company"/>
-        </mission>
         <mission id="deploy">
         	<goal id="deploy"/>
         </mission>
         <mission id="finalize_sprint">
         	<goal id="finalize_sprint"/>
         </mission>
-        
     </scheme>
+    
+    <scheme id="develop_software_sch">
+        <goal id="deliver_system">
+            <plan operator="sequence">
+            	<goal id="create_system">
+            		<plan operator="sequence">
+						<goal id="hire_software_company"/>
+						<goal id="deploy"/>
+					</plan>
+				</goal>
+			</plan>
+        </goal>
+        
+       	<mission id="hire_software_company">
+            <goal id="hire_software_company"/>
+        </mission>
+        <mission id="deploy">
+        	<goal id="deploy"/>
+        </mission>
+    </scheme>
+    
 </functional-specification>
 
 <normative-specification>
-	<norm id="norm1" type="obligation" role="proj_owner" mission="hire_software_company"/>
-    <norm id="norm2" type="obligation" role="developer" mission="deploy"/>
-    <norm id="norm3" type="obligation" role="analyst" mission="finalize_sprint"/>
 </normative-specification>
 
 </organisational-specification>

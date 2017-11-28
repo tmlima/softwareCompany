@@ -71,8 +71,7 @@
 
 +!deploy
 	<-
-		.print("Deploying");
+		.print("Telling admin package is ready");
 		.wait(5000);
-		.send(proj_owner, tell, deployed);		
-		.print("Deployed");		
+		.send(admin, tell, package_ready);		
 		.

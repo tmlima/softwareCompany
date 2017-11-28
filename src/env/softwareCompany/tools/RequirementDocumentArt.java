@@ -5,14 +5,14 @@ import cartago.OPERATION;
 
 public class RequirementDocumentArt extends Artifact {
 	
-	private boolean userApproved = false;
+	private boolean ownerApproved = false;
 	private boolean analystApproved = false;
 	
     void init()  {    	
     }
 
-    @OPERATION public void userApproval() {
-    	userApproved = true;
+    @OPERATION public void ownerApproval() {
+    	ownerApproved = true;
     	updateBothApproved();
     }
 
@@ -22,7 +22,7 @@ public class RequirementDocumentArt extends Artifact {
     }
     
     private void updateBothApproved() {
-    	if (userApproved && analystApproved)
+    	if (ownerApproved && analystApproved)
             defineObsProperty("bothApproved");
     }
 }

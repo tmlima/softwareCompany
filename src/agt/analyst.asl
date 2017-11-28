@@ -28,7 +28,7 @@
 
 +!sendRequirementsDocumentToUser(ProjectName)
 	<-
-		.send(user, tell, project(ProjectName));
+		.send(proj_owner, tell, project(ProjectName));
 		.
 		
 +!signDocument

@@ -1,12 +1,6 @@
 { include("common.asl") }
 
-/* Initial beliefs and rules */
-
 !hire_software_company.
-
-/* Initial goals */
-
-/* Plans */
 
 +readyToDeploy[source(Developer)] 
 	<- 
@@ -15,11 +9,16 @@
 		.send(Developer, tell, deployApproved);
 		.
 
-+deployed[source(Developer)]
++project(ProjectName)
 	<-
-	.broadcast(tell,deployed);
-	.
-	
+		.print("Analysing requirments");
+		.wait(5000);
+		lookupArtifact("requirements", RequirementsArtId);
+		focus(RequirementsArtId);
+		ownerApproval[artifact_id(RequirementsArtId)];
+		.print("Requirements document approved");
+		.
+
 +!hire_software_company
 	<-
 		ProjectName = "projectOne";	
