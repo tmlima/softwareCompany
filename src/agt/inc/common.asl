@@ -15,9 +15,10 @@
 		focus(TaskArtId);
 		setPersonResponsible("")[artifact_id(TaskArtId)]
 		.		
-		
-+!idle
+
++!idle : idle(IdleTime)
 	<- 
-		.wait(5000); 
-		-+idle
+		.wait(2000); 
+		-+idle(IdleTime + 2);
 		.
+		

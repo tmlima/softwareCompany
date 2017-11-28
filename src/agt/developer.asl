@@ -1,34 +1,28 @@
 { include("common.asl") }
 
-/* Initial beliefs and rules */
-
-/* Initial goals */
-
-/* Plans */
-
 +project(ProjectName) 
 	<- 	
 		.print("I was assigned to project ", ProjectName);
 		lookupArtifact("board", BoardArtId);
 		focus(BoardArtId);
 		+boardArtId(BoardArtId);
-		+idle;
+		+idle(0);
 		.
 		
-+idle : boardArtId(BoardArtId) & firstTaskTodoArtId(TaskArtId)[artifact_id(BoardArtId)] & not(TaskArtId = "")
++deployed : idle(IdleTime) <- .print("Idle time:", IdleTime).		
+
++idle(IdleTime) : boardArtId(BoardArtId) & firstTaskTodoArtId(TaskArtId)[artifact_id(BoardArtId)] & not(TaskArtId = "")
 	<-
-		-idle;
+		-idle(IdleTime);
 		!doTask(TaskArtId);
-		+idle;
+		+idle(IdleTime);
 		.
 
-+idle : true <- !idle.
++idle(IdleTime) : true <- !idle.
 
 +readyToDeploy <- !getOwnerApproval.
 		
 +deployApproved <- !deploy.
-
-
 
 +!getTask(TaskArtIdString, BoardArtId) : .my_name(Name)
 	<-
