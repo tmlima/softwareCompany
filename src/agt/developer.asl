@@ -40,7 +40,7 @@
 		lookupArtifact(TaskArtIdString, TaskArtId);
 		?size(Size)[artifact_id(TaskArtId)];		
 		.term2string(SizeNumber, Size);
-		.wait(SizeNumber * 1000);
+		.wait(SizeNumber * 3000);
 		.print("Task ", TaskArtIdString, " developed!");
 		.
 
@@ -51,7 +51,7 @@
 		!moveToTest(TaskArtId, BoardArtId);
 		.
 		
--!doTask(TaskArtId)[error_msg(ErrorMsg)] <- .print("Error when doing task ", TaskArtId, ": ", ErrorMsg).		
+-!doTask(TaskArtId)[error_msg(ErrorMsg)] <- -+idle.		
 
 +!moveToTest(TaskArtIdString, BoardArtId)
 	<-

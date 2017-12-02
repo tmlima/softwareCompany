@@ -39,24 +39,34 @@
 
 +!createTasksFromRequirement
 	<-
-		!createTask("crud1");
-		!createTask("crud2");
-		!createTask("crud3");
-		!createTask("crud4");
-		!createTask("crud5");
-		!createTask("crud6");
-		!createTask("crud7");
-		!createTask("crud8");
-		!createTask("crud9");
-		!createTask("crud10");
-		!createTask("crud11");
-		!createTask("crud12");
+		!createTask("Task1");
+		!createTask("Task2");
+		!createTask("Task3");
+		!createTask("Task4");
+		!createTask("Task5");
+		!createTask("Task6");
+		!createTask("Task7");
+		!createTask("Task8");
+		!createTask("Task9");
+		!createTask("Task10");
+		!createTask("Task11");
+		!createTask("Task12");
   		.
 
-+!createTask(TaskName) : .random(N) & N > 0
++!createTask(TaskName) : .random(N) & N > 0.1
 	<-
 		.print("Creating task ", TaskName);
 		Size = math.round(N * 10);
+		.term2string(Size, SizeString);
+		makeArtifact(TaskName, "softwareCompany.tools.TaskArt", [TaskName, SizeString], TaskArtId);
+		focus(TaskArtId);
+		!addTaskToBoard(TaskArtId);
+		.
+
++!createTask(TaskName)
+	<-
+		.print("Creating task ", TaskName);
+		Size = 1;
 		.term2string(Size, SizeString);
 		makeArtifact(TaskName, "softwareCompany.tools.TaskArt", [TaskName, SizeString], TaskArtId);
 		focus(TaskArtId);

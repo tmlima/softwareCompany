@@ -13,10 +13,8 @@
 				
 +idle(IdleTime) : boardArtId(BoardArtId) & firstTaskToTestArtId(TaskArtId)[artifact_id(BoardArtId)] & not(TaskArtId = "")
 	<-
-		!getTask(TaskArtId, BoardArtId);
-		-idle(IdleTime);
 		!doTask(TaskArtId);
-		+idle(IdleTime);		
+		-+idle(IdleTime);		
 		.
 
 +idle(IdleTime) : true <- !idle.
@@ -31,8 +29,11 @@
 		moveTask(TaskArtIdString, "ToTest", "Testing", Responsible)[artifact_id(BoardArtId)];
 		.
 
+-!getTask(TaskArtIdString, BoardArtId) : idle(IdleTime) <- -+idle(IdleTime).
+		
 +!doTask(TaskArtId) : boardArtId(BoardArtId)
 	<-
+		!getTask(TaskArtId, BoardArtId);
 		!testTask(TaskArtId);
 		!moveTask(TaskArtId, BoardArtId);
 		.
@@ -43,18 +44,23 @@
 		lookupArtifact(TaskArtIdString, TaskArtId);
 		?size(Size)[artifact_id(TaskArtId)];		
 		.term2string(SizeNumber, Size);
-		.wait((SizeNumber * 1000) / 3);
+		!testTime(SizeNumber);
 		.print("Bug found on task ", TaskArtIdString, "!");
 		+bugFound;
 		.
 		
-+!testTask(TaskArtId)
++!testTask(TaskArtIdString)
 	<-
-		.print("Testing task ", TaskArtId);
-		.wait(3000);
-		.print("Task ", TaskArtId, " tested!");
+		.print("Testing task ", TaskArtIdString);
+		lookupArtifact(TaskArtIdString, TaskArtId);
+		?size(Size)[artifact_id(TaskArtId)];		
+		.term2string(SizeNumber, Size);
+		!testTime(SizeNumber);
+		.print("Task ", TaskArtIdString, " tested!");
 		.
-
+		
++!testTime(Size) <- .wait((Size * 3000) / 3).
+		
 +!moveTask(TaskArtId, BoardArtId) : bugFound
 	<-
 		!removePersonReponsible(TaskArtId);

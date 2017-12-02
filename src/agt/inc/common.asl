@@ -18,7 +18,7 @@
 
 +!idle : idle(IdleTime)
 	<- 
-		.wait(2000); 
-		-+idle(IdleTime + 2);
+		.wait(1000); 
+		-+idle(IdleTime + 1);
 		.
 		
