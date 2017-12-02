@@ -24,6 +24,8 @@ mas softwareCompany {
         }
         scheme develop_software_eng: develop_software_sch {
         } 
+        scheme client_eng: client_sch {
+        } 
     }
  
  	asl-path: src/agt
