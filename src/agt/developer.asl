@@ -1,5 +1,7 @@
 { include("common.asl") }
 
+experienceFactor(0).
+		
 +project(ProjectName) 
 	<- 	
 		.print("I was assigned to project ", ProjectName);
@@ -34,16 +36,19 @@
 		moveTask(TaskArtIdString, "Todo", "Doing", Responsible)[artifact_id(BoardArtId)];
 		.
 			
-+!codeTask(TaskArtIdString)
++!codeTask(TaskArtIdString) : experienceFactor(Factor)
 	<-
 		.print("Developing task ", TaskArtIdString);
 		lookupArtifact(TaskArtIdString, TaskArtId);
 		?size(Size)[artifact_id(TaskArtId)];		
 		.term2string(SizeNumber, Size);
-		.wait(SizeNumber * 3000);
+		.wait((SizeNumber * 3000) - ((SizeNumber * 3000) * (Factor * 0.05)));
+		!increaseExperience(SizeNumber);
 		.print("Task ", TaskArtIdString, " developed!");
 		.
-
++!increaseExperience(TaskSize) : experienceFactor(Factor) & ((Factor + TaskSize) < 10) <- -+experienceFactor(Factor + TaskSize).
++!increaseExperience(TaskSize) : experienceFactor(Factor) & ((Factor + SizeNumer) >= 10) <- -+experienceFactor(10).
+	
 +!doTask(TaskArtId) : boardArtId(BoardArtId)
 	<-
 		!getTask(TaskArtId, BoardArtId);
