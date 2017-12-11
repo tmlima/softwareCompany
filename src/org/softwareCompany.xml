@@ -30,7 +30,7 @@
 			 	    <role id="manager" min="1" max="1"/>
 			        <role id="analyst" min="1" max="1"/>
 			        <role id="developer" min="1" max="12"/>
-			        <role id="tester" min="1" max="6"/>
+			        <role id="tester" min="1" max="12"/>
 			    </roles>	    
 		    </group-specification>
 			<group-specification id="client">
@@ -96,10 +96,10 @@
 
 <normative-specification>
 	<norm id="norm1" type="obligation" role="proj_owner" mission="hire_software_company"/>
-	<norm id="norm3" type="obligation" role="proj_owner" mission="deploy"/>	
-	<norm id="norm2" type="obligation" role="developer" mission="develop_task"/>	
-	<norm id="norm3" type="obligation" role="tester" mission="test_task"/>
-	<norm id="norm3" type="obligation" role="developer" mission="deploy"/>	
+	<norm id="norm2" type="obligation" role="proj_owner" mission="deploy"/>	
+	<norm id="norm3" type="obligation" role="developer" mission="develop_task"/>	
+	<norm id="norm4" type="obligation" role="tester" mission="test_task"/>
+	<norm id="norm5" type="obligation" role="developer" mission="deploy"/>	
 </normative-specification>
 
 </organisational-specification>
